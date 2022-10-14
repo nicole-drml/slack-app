@@ -18,19 +18,21 @@ const Landing = () => {
       console.log("reject", err);
     });
 
-    const toSignIn = () => {
-        navigate("/signin");
-    }
+  const toSignIn = () => {
+    navigate("/signin");
+  };
 
-    const toSignUp = () => {
-      navigate("/signup");
-  }
+  const toSignUp = () => {
+    navigate("/signup");
+  };
   return (
     <div className="landing-page">
       <header className="header">
         <img src={logoWithText} />
         <nav>
-          <div className="sign-in-button" onClick={toSignIn} >Sign In</div>
+          <div className="sign-in-button" onClick={toSignIn}>
+            Sign In
+          </div>
         </nav>
       </header>
       <body>
@@ -40,11 +42,13 @@ const Landing = () => {
             Great teamwork starts with a <span>digital HQ</span>
           </h1>
           <p className="subtitle">
-            With all your people, tools and communication in one place,<br></br> you can
-            work faster and more flexibly than ever before.
+            With all your people, tools and communication in one place,<br></br>{" "}
+            you can work faster and more flexibly than ever before.
           </p>
-          <button  onClick={toSignUp} >SIGN UP WITH EMAIL</button>
-          <p className="slack-is-free"><span>Slack is free to try </span> for as long as you'd like</p>
+          <button onClick={toSignUp}>SIGN UP WITH EMAIL</button>
+          <p className="slack-is-free">
+            <span>Slack is free to try </span> for as long as you'd like
+          </p>
         </div>
         <div className="body-image">
           <img src={bodyImage} />
