@@ -1,0 +1,29 @@
+@import '/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/_styles.scss';
+.sign-in-container {
+    margin-top: 20px;
+    
+    .to-sign-up-container {
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        font-size: .8em;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        p {
+        text-align: right;
+        color: $grey;
+        }
+
+        a {
+            color: $accent-blue;
+            font-weight: 700;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+      }
+}

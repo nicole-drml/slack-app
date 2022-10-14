@@ -1,0 +1,54 @@
+@import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/_styles.scss";
+
+.sign-up-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 68px;
+
+    .or-span {
+        position: relative;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+    }
+    .or-span:before {
+        content: "";
+        width: 180px;
+        height: 2px;
+        background-color: $grey;
+        position: absolute;
+        top: 50%;
+        left: 15%;
+    }
+    .or-span:after {
+        content: "";
+        width: 180px;
+        height: 2px;
+        background-color: $grey;
+        position: absolute;
+        top: 50%;
+        right: 15%;
+    }
+
+    p {
+        margin-top: 40px;
+        color: $grey;
+    }
+
+    a {
+        margin-top: 7px;
+        font-size: .9em;
+        font-weight: 400;
+        color: $accent-blue;            
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
