@@ -1,3 +1,11 @@
+@import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/_styles.scss";
+
 .client-page {
     position: relative;
+    display: flex;
+    color: $font-color;
+
+    .client-body {
+        display: flex;
+    }
 }

@@ -2,10 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Form from "../../components/Form";
 import "./SignIn.scss"
 
-const SignIn = ({
-    formTitle,
-    buttonText
-}) => {
+const SignIn = () => {
     const navigate = useNavigate();
     const toSignUp = () => {
         navigate('/signup')

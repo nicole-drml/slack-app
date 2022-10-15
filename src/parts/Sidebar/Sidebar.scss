@@ -1,6 +1,36 @@
+@import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/_styles.scss";
+
 .sidebar-part {
-    // position: absolute;
-    background-color: aqua;
-    width: 100vw;
-    height: 100vh;
+  position: absolute;
+  background-color: $grey-violet;
+  width: 20%;
+  top: 50px;
+  bottom: 0;
+  color: $font-color;
+  padding: 15px;
+
+  .sidebar-heading {
+    font-size: 1.2em;
+    font-weight: 700;
+    display: flex;
+
+    .compose-message-icon {
+      margin-left: auto;
+      color: rgba($font-color, 0.5);
+      transition: 300ms ease;
+      cursor: pointer;
+
+      &:hover {
+        color: $font-color;
+      }
+    }
+  }
+
+  .channels-dm-container {
+    margin-top: 30px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
 }
