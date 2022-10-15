@@ -1,35 +1,38 @@
 @import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/_styles.scss";
 
 .message-group-component {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba($font-color, 0.7);
+  cursor: pointer;
 
-    &:hover > .settings-container {
-      visibility: visible;
-    }
-    .icon {
-      color: $icon-color;
-      border-radius: 5px;
-      width: 25px;
-      height: 25px;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-
-      &:hover {
-        color: $font-color;
-        background-color: rgba($grey, 0.3);
-      }
-    }
-    .message-group-span {
-      font-weight: 500;
-    }
-
-    .settings-container {
-      display: flex;
-      margin-left: auto;
-      visibility: hidden;
-    }
+  &:hover {
+    color: $font-color;
   }
+
+  &:hover > .settings-container {
+    visibility: visible;
+  }
+  
+.caret-icon {
+  transition: 300ms ease;
+}
+.active-group {
+  transform: rotate(90deg);
+  color: $font-color;
+}
+  .message-group-span {
+    font-weight: 500;
+  }
+
+  .active {
+    color: $font-color;
+
+  }
+  .settings-container {
+    display: flex;
+    margin-left: auto;
+    visibility: hidden;
+  }
+}

@@ -26,9 +26,10 @@
         cursor: pointer;
         padding: 5px 0px;
         border-bottom: 1px solid transparent;
+        font-family: "Poppins", sans-serif;
 
         &:hover {
-            border-bottom: 1px solid $white;
+          border-bottom: 1px solid $white;
         }
       }
     }
@@ -42,52 +43,55 @@
     position: relative;
 
     .body-text {
-        display: flex;
-        flex-direction: column;
-        align-self: flex-start;
-        height: 100%;
-        h1 {
-            font-size: 4em;
-            margin-top: 100px;
-            span {
-                color: $yellow;
-            }
+      display: flex;
+      flex-direction: column;
+      align-self: flex-start;
+      height: 100%;
+      h1 {
+        font-size: 4em;
+        margin-top: 100px;
+        span {
+          color: $yellow;
         }
+      }
 
-        .subtitle {
-            font-size: 1.30em;
-            line-height: 1.3em;
-        }
-    
-        button {
-            margin-top: 150px;
-            padding: 20px 35px;
-            border-radius: 5px;
-            color: $violet;
-            font-weight: 700;
-            width: max-content;
-            letter-spacing: .1em;
-            border:  1px solid transparent;
-            cursor: pointer;
-            transition: 300ms ease;
+      .subtitle {
+        font-size: 1.15em;
+        line-height: 1.3em;
+        font-family: "Poppins", sans-serif;
+      }
 
-            &:hover {
-            border: 1px solid $violet;
-            }
-        }
+      button {
+        margin-top: 150px;
+        padding: 20px 35px;
+        border-radius: 5px;
+        color: $violet;
+        font-weight: 700;
+        width: max-content;
+        letter-spacing: 0.1em;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: 300ms ease;
 
-        .slack-is-free {
-            font-size: 1.2em;
-            margin-top: 15px;
-            span {
-                font-weight: 700;
-            }
+        &:hover {
+          border: 1px solid $violet;
         }
+      }
+
+      .slack-is-free {
+        font-size: 1em;
+        margin-top: 15px;
+
+        font-family: "Poppins", sans-serif;
+        span {
+          font-weight: 700;
+        }
+      }
     }
 
     img {
-        width: 650px;
-        margin-right: 20px;
+      width: 650px;
+      margin-right: 20px;
     }
   }
 }

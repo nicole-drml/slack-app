@@ -1,3 +1,3 @@
-import Conversations from "./Conversation";
+import Conversations from "./Conversation"
 
 export default Conversations

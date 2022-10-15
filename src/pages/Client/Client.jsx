@@ -1,6 +1,6 @@
 import Sidebar from "/Users/nicoledoromal/AvionSchool/slack-app/src/parts/Sidebar/Sidebar.jsx";
 import Header from "/Users/nicoledoromal/AvionSchool/slack-app/src/parts/Header/Header.jsx";
-import Conversations from "/Users/nicoledoromal/AvionSchool/slack-app/src/parts/Conversation/Conversation.jsx";
+import Conversations from "../../parts/Conversation";
 
 const Client = () => {
   return (

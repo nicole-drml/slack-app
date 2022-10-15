@@ -2,17 +2,21 @@
 
 .sidebar-part {
   position: absolute;
+  display: flex;
+  flex-direction: column;
   background-color: $grey-violet;
   width: 20%;
   top: 50px;
   bottom: 0;
   color: $font-color;
   padding: 15px;
+  overflow: hidden;
 
   .sidebar-heading {
     font-size: 1.2em;
     font-weight: 700;
     display: flex;
+    font-family: "Poppins", sans-serif;
 
     .compose-message-icon {
       margin-left: auto;
@@ -27,10 +31,69 @@
   }
 
   .channels-dm-container {
-    margin-top: 30px;
+    position: absolute;
+    margin-top: 40px;
+    padding-top: 20px;
+    padding: 20px 8px;
+    left: 0;
+    right: 0;
     font-weight: 700;
+    border-top: 1px solid rgba($grey, 0.7);
+    border-width: 100%;
     display: flex;
     flex-direction: column;
     gap: 15px;
+  }
+
+  .sidebar-current-conversation {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 10px;
+    border-top: 1px solid rgba($grey, 0.7);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    transition: 300ms ease;
+
+    span {
+      padding: 6px 5px 0;
+      color: rgba($font-color, 0.7);
+    }
+
+    &:hover > span {
+      color: $font-color;
+    }
+
+    &:hover > .icon {
+      color: $font-color;
+    }
+    
+    .icon {
+      margin-top: 6px;
+      margin-left: auto;
+    }
+  }
+
+  .hidden {
+    transform: translateY(40px);
+    pointer-events: none;
+  }
+
+  .icon {
+    color: $icon-color;
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+
+    &:hover {
+      color: $font-color;
+      background-color: rgba($grey, 0.3);
+    }
   }
 }
