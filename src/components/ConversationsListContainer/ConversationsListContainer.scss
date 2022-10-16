@@ -1,5 +1,6 @@
 @import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/_styles.scss";
 @import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/_mixins.scss";
+@import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/_keyframes.scss";
 
 .conversations-list-container {
   height: fit-content;
@@ -12,7 +13,7 @@
   z-index: 1;
   overflow-y: scroll;
   padding: 5px 0;
-  animation: show 500ms forwards;
+  animation: show-from-left 500ms forwards;
   z-index: 1;
 
   &::-webkit-scrollbar {
@@ -39,11 +40,4 @@
       @include text-ellipsis(70%);
     }
   }
-}
-
-@keyframes show {
-    0% {
-        transform: translateX(-100px);
-    }
-    100% {}
 }

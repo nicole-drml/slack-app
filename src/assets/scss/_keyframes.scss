@@ -1,0 +1,22 @@
+@keyframes rotate-logo {
+    0% {
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes rotate-back-logo {
+    0% {
+      transform: rotate(360deg);
+    }
+    100% {
+    }
+  }
+
+@keyframes show-from-left {
+    0% {
+        transform: translateX(-100px);
+    }
+    100% {}
+}
