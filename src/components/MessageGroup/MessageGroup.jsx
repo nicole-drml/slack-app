@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
-
 import "./MessageGroup.scss";
 
-const MessageGroup = ({ messageGroupSpan }) => {
-  const [activeIcon, setActiveIcon] = useState(false);
-
+const MessageGroup = ({
+  messageGroupSpan,
+  activeComponent,
+  setActiveComponent,
+}) => {
   const dropDown = () => {
-    setActiveIcon(!activeIcon);
+    setActiveComponent(!activeComponent);
   };
 
   return (
     <div className="message-group-component" onClick={dropDown}>
-      <div className={"caret-icon icon " + (activeIcon ? "active-group" : "")}>
+      <div
+        className={"caret-icon icon " + (activeComponent ? "rotate-icon" : "")}
+      >
         <i className="fa-solid fa-caret-right"></i>
       </div>
-      <span className={"message-group-span " + (activeIcon ? "active" : "")}>
+      <span
+        className={"message-group-span " + (activeComponent ? "active" : "")}
+      >
         {messageGroupSpan}
       </span>
       <div className="settings-container">

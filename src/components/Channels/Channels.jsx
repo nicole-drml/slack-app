@@ -1,9 +1,13 @@
 import MessageGroup from "../MessageGroup";
 
-const Channels = () => {
+const Channels = ({ channelsActive, setChannelsActive }) => {
   return (
     <div className="channels-component">
-      <MessageGroup messageGroupSpan={"Channels"} />
+      <MessageGroup
+        messageGroupSpan={"Channels"}
+        activeComponent={channelsActive}
+        setActiveComponent={setChannelsActive}
+      />
     </div>
   );
 };

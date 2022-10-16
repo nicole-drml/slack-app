@@ -1,0 +1,49 @@
+@import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/_styles.scss";
+@import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/_mixins.scss";
+
+.conversations-list-container {
+  height: fit-content;
+  max-height: 260px;
+  color: $font-color;
+  border-width: 110%;
+  border-top: 1px solid rgba($grey, 0.2);
+  border-bottom: 1px solid rgba($grey, 0.2);
+  position: relative;
+  z-index: 1;
+  overflow-y: scroll;
+  padding: 5px 0;
+  animation: show 500ms forwards;
+  z-index: 1;
+
+  &::-webkit-scrollbar {
+    margin: 3px;
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba($grey, 0.2);
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-track {
+    margin: 5px 0 5px;
+  }
+
+  li {
+    padding: 6px 10px;
+    font-weight: 400;
+    font-size: 0.95em;
+    display: flex;
+
+    .conversation-name {
+      @include text-ellipsis(70%);
+    }
+  }
+}
+
+@keyframes show {
+    0% {
+        transform: translateX(-100px);
+    }
+    100% {}
+}
