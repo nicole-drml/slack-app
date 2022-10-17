@@ -9,12 +9,15 @@ const Dashboard = () => {
     ? localStorage.getItem("SIGNED_IN")
     : "";
 
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!SIGNED_IN) navigate("/signin");
+    if (!SIGNED_IN) {
+    navigate("/signin");
+    }
   });
-
+  
   return (
     <div className="dashboard-page">
       <Header />
