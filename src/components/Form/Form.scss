@@ -13,8 +13,10 @@
     align-items: center;
     margin-top: 5%;
     padding: 20px;
+
     img {
       width: 200px;
+      cursor: pointer;
     }
 
     h1 {
@@ -40,16 +42,16 @@
       border: 0.5px solid grey;
     }
 
-.input-email {
-  margin-top: 40px;
-}
+    .input-email {
+      margin-top: 40px;
+    }
 
-.input-password {
-  margin-top: 30px;
-}
-.input-confirm-password {
-  margin-top: 10px;
-}
+    .input-password {
+      margin-top: 30px;
+    }
+    .input-confirm-password {
+      margin-top: 10px;
+    }
     ::placeholder {
       font-size: 1.2em;
     }
@@ -69,6 +71,11 @@
       &:hover {
         background-color: rgba($violet, 0.9);
       }
+    }
+
+    .error-message {
+      margin-top: 15px;
+      color: rgba(rgb(216, 100, 100), .8);
     }
   }
 }

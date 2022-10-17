@@ -1,11 +1,11 @@
 @import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/_styles.scss";
 
-.client-page {
+.dashboard-page {
     position: relative;
     display: flex;
     color: $font-color;
 
-    .client-body {
+    .dashboard-body {
         display: flex;
     }
 }

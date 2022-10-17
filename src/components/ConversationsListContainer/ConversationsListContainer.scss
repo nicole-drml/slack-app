@@ -30,14 +30,30 @@
     margin: 5px 0 5px;
   }
 
-  li {
+  .recepient-li {
     padding: 6px 10px;
     font-weight: 400;
     font-size: 0.95em;
     display: flex;
+    cursor: pointer;
 
     .conversation-name {
       @include text-ellipsis(70%);
+      color: rgba($font-color, 0.7);
+    }
+
+    .icon {
+      margin-left: auto;
+      visibility: hidden;
+    }
+
+    &:hover {
+      color: $font-color;
+      background-color: rgba($grey, 0.1);
+    }
+
+    &:hover > .icon {
+      visibility: visible;
     }
   }
 }

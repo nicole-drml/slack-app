@@ -22,9 +22,6 @@ const MessageGroup = ({
         {messageGroupSpan}
       </span>
       <div className="settings-container">
-        <div className="vertical-ellipsis-icon icon">
-          <i className="fa-solid fa-ellipsis-vertical"></i>
-        </div>
         <div className="plus-icon icon">
           <i className="fa-solid fa-plus"></i>
         </div>

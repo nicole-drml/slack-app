@@ -1,29 +1,47 @@
-import "./ConversationsListContainer.scss"
+import "./ConversationsListContainer.scss";
+import { useState, useEffect } from "react";
 
 const ConversationsListContainer = () => {
-    const CONVERSATIONS = [
-        {name: "Sab", age: 24},
-        {name: "Emma", age: 20},
-        {name: "Alex", age: 17},
-        {name: "Sarina", age: 24},
-        {name: "Ella", age: 20},
-        {name: "Andre", age: 17},
-        {name: "thequickbronwfoxjumpsoverthelazy", age: 24},
-        {name: "Ysa", age: 20},
-        {name: "Olivia", age: 17}
-    ]
+  const [users, setUsers] = useState([]);
+  const [hasError, setHasError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  const fetchUsers = () => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((result) => {
+        setUsers(result);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setHasError(error);
+        setIsLoading(true);
+      });
+  };
 
-    return ( 
-        <div className="conversations-list-container">
-            <ul>
-                {CONVERSATIONS.map((conversation) => {
-                    return (<li>
-                        <span className="conversation-name">{conversation.name}</span>
-                        </li>)
-                })}
-            </ul>
-        </div>
-     );
-}
- 
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  return (
+    <div className="conversations-list-container">
+      <ul>
+        {isLoading ? (
+          <span>LOADING...</span>
+        ) : (
+          users.map((user) => {
+            return (
+              <li className="recepient-li">
+                <span className="conversation-name">{user.name}</span>
+                <i class="fa-solid fa-i-cursor icon"></i>
+                <i class="fa-regular fa-trash-can icon"></i>
+              </li>
+            );
+          })
+        )}
+      </ul>
+    </div>
+  );
+};
+
 export default ConversationsListContainer;
