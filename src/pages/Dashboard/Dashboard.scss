@@ -1,9 +1,12 @@
-@import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/_styles.scss";
+@import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/partials/_styles.scss";
 
 .dashboard-page {
     position: relative;
     display: flex;
     color: $font-color;
+    background-color: $light-grey;
+    width: 100vw;
+    height: 100vh;
 
     .dashboard-body {
         display: flex;

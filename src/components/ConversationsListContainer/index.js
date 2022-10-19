@@ -1,3 +1,0 @@
-import ConversationsListContainer from "./ConversationsListContainer"
-
-export default ConversationsListContainer

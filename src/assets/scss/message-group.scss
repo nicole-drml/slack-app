@@ -1,0 +1,115 @@
+@import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/partials/_styles.scss";
+@import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/partials/_mixins.scss";
+@import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/partials/_keyframes.scss";
+
+.message-group-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba($font-color, 0.7);
+  cursor: pointer;
+  margin-bottom: 10px;
+
+  &:hover {
+    color: $font-color;
+  }
+
+  &:hover > .settings-container {
+    visibility: visible;
+  }
+  
+.caret-icon {
+  transition: 300ms ease;
+}
+.rotate-icon {
+  transform: rotate(90deg);
+  color: $font-color;
+}
+  .message-group-span {
+    font-weight: 500;
+    flex-grow: 1;
+  }
+
+  .active {
+    color: $font-color;
+
+  }
+  .settings-container {
+    display: flex;
+    margin-left: auto;
+    visibility: hidden;
+  }
+}
+
+.conversations-list-container {
+  height: fit-content;
+  max-height: 260px;
+  color: $font-color;
+  border-width: 110%;
+  border-top: 1px solid rgba($grey, 0.2);
+  border-bottom: 1px solid rgba($grey, 0.2);
+  position: relative;
+  z-index: 1;
+  overflow-y: scroll;
+  padding: 5px 0;
+  animation: show-from-left 500ms forwards;
+  z-index: 1;
+
+  &::-webkit-scrollbar {
+    margin: 3px;
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba($grey, 0.2);
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-track {
+    margin: 5px 0 5px;
+  }
+
+
+  .add-receiver-input-field {
+    width: 90%;
+    height: 30px;
+    margin-left: 6px;
+    padding: 3px 6px;
+    background-color: rgba($grey, .2);
+    border: 1px solid rgba($grey, .2);
+    color: rgba($font-color, 0.9);
+  }
+
+  .default-empty-span {
+    color: rgba($font-color, 0.7);
+    padding: 3px 6px;
+    font-weight: 400;
+  }
+
+  .recepient-li {
+    padding: 6px 10px;
+    font-weight: 400;
+    font-size: 0.95em;
+    display: flex;
+    cursor: pointer;
+
+    .conversation-name {
+      @include text-ellipsis(70%);
+      color: rgba($font-color, 0.7);
+    }
+
+    .icon {
+      margin-left: auto;
+      visibility: hidden;
+    }
+
+    &:hover {
+      color: $font-color;
+      background-color: rgba($grey, 0.1);
+    }
+
+    &:hover > .icon {
+      visibility: visible;
+    }
+  }
+}

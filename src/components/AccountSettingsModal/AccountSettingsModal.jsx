@@ -12,6 +12,7 @@ const AccountSettingsModal = () => {
     "content-type",
     "token-type",
     "uid",
+    "RECEIVER"
   ];
 
   const signOut = () => {

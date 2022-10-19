@@ -26,7 +26,7 @@ const Form = ({
 
 // const fetchUsers =() => {
 //   fetch('http://206.189.91.54/api/v1/users', {
-//     method: 'GET',
+//     method: '',
 //     headers: {
 //       'access-token': accessToken,
 //       client: client,

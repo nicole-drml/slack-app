@@ -1,19 +1,22 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import "./Sidebar.scss";
 
 import Channels from "/Users/nicoledoromal/AvionSchool/slack-app/src/components/Channels/Channels.jsx";
-import ChannelsList from "/Users/nicoledoromal/AvionSchool/slack-app/src/components/ChannelsList/ChannelsList.jsx";
 import DirectMessages from "../../components/DirectMessages/DirectMessages.jsx";
-import DirectMessagesList from "/Users/nicoledoromal/AvionSchool/slack-app/src/components/DirectMessagesList/DirectMessagesList.jsx";
-const Sidebar = () => {
-  const [conversationVisible, setConversationVisible] = useState(true);
+
+const Sidebar = (props) => {
+  const [currentLabelVisible, setCurrentLabelVisible] = useState(false);
+
+  const navigate = useNavigate()
+
 
   const hideConversation = () => {
-    setConversationVisible(!conversationVisible);
+    setCurrentLabelVisible(false);
+    navigate('/dashboard')
+    localStorage.removeItem("RECEIVER")
   };
-
-  const [channelsActive, setChannelsActive] = useState(false);
-  const [directActive, setDirectActive] = useState(false);
 
   return (
     <div className="sidebar-part">
@@ -25,25 +28,25 @@ const Sidebar = () => {
       </div>
       <div className="channels-dm-container">
         <Channels
-          channelsActive={channelsActive}
-          setChannelsActive={setChannelsActive}
-        />
-        {channelsActive && <ChannelsList />}
+        showCurrentLabel={currentLabelVisible => setCurrentLabelVisible(true)}
+
+        /> 
         <DirectMessages
-          directActive={directActive}
-          setDirectActive={setDirectActive}
+        showCurrentLabel={currentLabelVisible => setCurrentLabelVisible(true)}
+        allUsers={props.allUsers}
+        
         />
-        {directActive && <DirectMessagesList />}
       </div>
       <div
         className={
           "sidebar-current-conversation " +
-          (conversationVisible ? "visible" : "hidden")
+          (currentLabelVisible ? "visible" : "hidden")
         }
       >
         <span>Angela</span>
         <div className="icon" onClick={hideConversation}>
-          <i className="fa-solid fa-xmark"></i>
+          <i className="fa-solid fa-xmark"
+          ></i>
         </div>
       </div>
     </div>

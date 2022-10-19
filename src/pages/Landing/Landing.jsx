@@ -6,17 +6,17 @@ import { useNavigate } from 'react-router-dom';
 const Landing = () => {
   const navigate = useNavigate();
 
-  fetch('https://jsonplaceholder.typicode.com/users')
-    .then((response) => {
-      console.log('resolved', response);
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((err) => {
-      console.log('reject', err);
-    });
+  // fetch('https://jsonplaceholder.typicode.com/users')
+  //   .then((response) => {
+  //     console.log('resolved', response);
+  //     return response.json();
+  //   })
+  //   .then((data) => {
+  //     console.log(data);
+  //   })
+  //   .catch((err) => {
+  //     console.log('reject', err);
+  //   });
 
   const toSignIn = () => {
     navigate('/signin');

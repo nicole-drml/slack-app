@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Form from "../../components/Form";
 import "./SignIn.scss";
 
 const SignIn = () => {
+  const SIGNED_IN = localStorage.getItem("SIGNED_IN")
+    ? localStorage.getItem("SIGNED_IN")
+    : "";
   const navigate = useNavigate();
   const location = useLocation();
   const { purpose } = location.pathname.split("/").pop();
@@ -53,7 +56,11 @@ const SignIn = () => {
       });
   };
 
-  if (signedIn) navigate("/client");
+  useEffect(() => {
+    if (SIGNED_IN) {
+      navigate("/dashboard");
+    }
+  });
 
   return (
     <div className="sign-in-container">
