@@ -35,7 +35,7 @@ const Landing = () => {
           </div>
         </nav>
       </header>
-      <body>
+      <div className='body-container'>
         <div className='body-text'>
           <h1>
             {' '}
@@ -53,7 +53,7 @@ const Landing = () => {
         <div className='body-image'>
           <img src={bodyImage} />
         </div>
-      </body>
+      </div>
     </div>
   );
 };

@@ -18,6 +18,10 @@ const Sidebar = (props) => {
     localStorage.removeItem("RECEIVER")
   };
 
+
+
+  const [receiverID, setReceiverID] = useState("");
+  const [receiverEmail, setReceiverEmail] = useState("");
   return (
     <div className="sidebar-part">
       <div className="sidebar-heading">
@@ -34,7 +38,11 @@ const Sidebar = (props) => {
         <DirectMessages
         showCurrentLabel={currentLabelVisible => setCurrentLabelVisible(true)}
         allUsers={props.allUsers}
-        
+        receiverID={receiverID}
+        setReceiverID={setReceiverID}
+        receiverEmail={receiverEmail}
+        setReceiverEmail={setReceiverEmail}
+        hideConversation={hideConversation}
         />
       </div>
       <div
@@ -43,7 +51,7 @@ const Sidebar = (props) => {
           (currentLabelVisible ? "visible" : "hidden")
         }
       >
-        <span>Angela</span>
+        <span>{receiverID}</span>
         <div className="icon" onClick={hideConversation}>
           <i className="fa-solid fa-xmark"
           ></i>

@@ -10,8 +10,11 @@ const Header = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [active, setActive] = useState(false);
+  
+  
   const logoClick = () => {
     navigate("/");
+    localStorage.removeItem("RECEIVER")
   };
 
   return (

@@ -13,45 +13,57 @@ const DirectMessages = (props) => {
   const addCredentials = (key, value) => {
     localStorage.setItem(key, value);
   };
-  const RECEIVER = localStorage.getItem("RECEIVER");
+  const RECEIVER = JSON.parse(localStorage.getItem("RECEIVER"));
 
+  const [contacts, setContacts] = useState(DIRECT_MESSAGES);
+  const [newContact, setNewContact] = useState("");
 
-  const [receivers, setReceivers] = useState(DIRECT_MESSAGES);
-  const [newReceiver, setNewReceiver] = useState("");
-
-  const [enterNewReceiver, setEnterNewReceiver] = useState("");
+  const [enterNewContact, setEnterNewContact] = useState("");
   const [directActive, setDirectActive] = useState(false);
   const [showReceiverInput, setShowReceiverInput] = useState(false);
 
   const navigate = useNavigate();
 
-
   const handleAddReceiver = (value) => {
-    setNewReceiver(value);
+    setNewContact(value);
   };
 
-  const handleSelectReceiver = (id) => {
-    addCredentials("RECEIVER", id);
-    props.showCurrentLabel();
-    navigate(`/dashboard/direct/${id}`);
+  const handleSelectReceiver = async (id) => {
+    const usersAPI = props.allUsers.data;
+    let receiver = usersAPI.filter((user) => user.email === id);
+
+    if (receiver.length > 0) {
+      addCredentials("RECEIVER", JSON.stringify(receiver));
+      console.log(receiver);
+
+      props.showCurrentLabel();
+
+      props.setReceiverID(receiver[0].id);
+      props.setReceiverEmail(receiver[0].email);
+      navigate(`/dashboard/direct/${id}/${receiver[0].id}`);
+      console.log("DIRECT_MESSAGES", DIRECT_MESSAGES);
+    } else if (receiver.length === 0) {
+      props.hideConversation(true)
+      alert(`"${id}" user does not exist`);
+    }
   };
 
   useEffect(() => {
-    if (enterNewReceiver !== "") {
-      const receiver = newReceiver;
+    if (enterNewContact !== "") {
+      const receiver = newContact;
       const id = JSON.stringify(new Date().getTime());
       const updated = [{ name: receiver, id: id }, ...DIRECT_MESSAGES];
       localStorage.setItem("DIRECT_MESSAGES", JSON.stringify(updated));
-      setReceivers(updated);
+      setContacts(updated);
       setShowReceiverInput(!showReceiverInput);
-      setNewReceiver("");
+      setNewContact("");
     }
-  }, [enterNewReceiver]);
+  }, [enterNewContact]);
 
   const handleDelete = (id) => {
-    const updatedReceivers = receivers.filter((receiver) => receiver.id !== id);
-    setReceivers(updatedReceivers);
-    localStorage.setItem("DIRECT_MESSAGES", JSON.stringify(updatedReceivers));
+    const updatedcontacts = contacts.filter((receiver) => receiver.id !== id);
+    setContacts(updatedcontacts);
+    localStorage.setItem("DIRECT_MESSAGES", JSON.stringify(updatedcontacts));
     console.log("deleted DM", id);
   };
 
@@ -88,40 +100,24 @@ const DirectMessages = (props) => {
           {showReceiverInput && (
             <input
               type="text"
-              value={newReceiver}
+              value={newContact}
               onChange={(e) => handleAddReceiver(e.target.value)}
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
-                  setEnterNewReceiver({ name: e.target.value });
+                  setEnterNewContact({ name: e.target.value });
                 }
               }}
               placeholder="new message"
               className="add-receiver-input-field"
-
-              //   type="email"
-              //     value={receiver}
-              //     onKeyPress={(e) => {
-              //       if (e.key === "Enter") {
-              //         enterReceiverValue({ name: e.target.value });
-              //       }
-              //   //   }}
-              //   className="receiver-input"
-              //   placeholder="receiver@email.com"
-              //   autoFocus="yes"
-              //   onClick={fetchUsers}
             ></input>
           )}
           <ul>
             {DIRECT_MESSAGES.length === 0 ? (
               <span className="default-empty-span">No messages yet</span>
             ) : (
-              receivers.map((receiver) => {
+              contacts.map((receiver) => {
                 return (
-                  <li
-                    className="recepient-li"
-                    key={receiver.id}
-                    // onClick={() => openMessage(receiver.id)}
-                  >
+                  <li className="recepient-li" key={receiver.id}>
                     <span
                       className="conversation-name"
                       onClick={() => handleSelectReceiver(receiver.name)}
@@ -142,16 +138,13 @@ const DirectMessages = (props) => {
       )}
       {RECEIVER && (
         <Conversation
-        allUsers={props.allUsers}
-        // id={props.setReceiverName=()=>{}}
+          allUsers={props.allUsers}
+          receiverID={props.receiverID}
+          setReceiverID={props.setReceiverID}
+          receiverEmail={props.receiverEmail}
+          setReceiverEmail={props.setReceiverEmail}
         />
       )}
-      {/* <Routes >
-        <Route index element={ <Conversation/> } />
-        <Route path="dashboard/:email" 
-        element=<C
-        />
-      </Routes> */}
     </div>
   );
 };
