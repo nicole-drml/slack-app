@@ -62,6 +62,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     fetchUsers();
     navigate('/dashboard');
+    localStorage.removeItem("RECEIVER")
   }, []);
 
 

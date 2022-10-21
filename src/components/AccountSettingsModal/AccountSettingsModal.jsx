@@ -4,22 +4,8 @@ import "./AccountSettingsModal.scss";
 const AccountSettingsModal = () => {
   const navigate = useNavigate();
 
-  let removeResponseHeaders = [
-    "access-token",
-    "client",
-    "expiry",
-    "cache-control",
-    "content-type",
-    "token-type",
-    "uid",
-    "RECEIVER"
-  ];
-
   const signOut = () => {
-    localStorage.removeItem("SIGNED_IN");
-    for (let header of removeResponseHeaders) {
-      localStorage.removeItem(header);
-    }
+    localStorage.clear();
     navigate("/");
   };
 

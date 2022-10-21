@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./Sidebar.scss";
 
@@ -9,40 +9,48 @@ import DirectMessages from "../../components/DirectMessages/DirectMessages.jsx";
 const Sidebar = (props) => {
   const [currentLabelVisible, setCurrentLabelVisible] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
+  const SIGNED_IN = localStorage.getItem("SIGNED_IN")
 
   const hideConversation = () => {
     setCurrentLabelVisible(false);
-    navigate('/dashboard')
-    localStorage.removeItem("RECEIVER")
+    navigate("/dashboard");
+    localStorage.removeItem("RECEIVER");
   };
 
-
-
   const [receiverID, setReceiverID] = useState("");
-  const [receiverEmail, setReceiverEmail] = useState("");
+  const [receiverEmail, setReceiverEmail] = useState("");  
+  const [signedIn, setSignedIn] = useState("");  
+  
+  useEffect(() => {
+    setSignedIn(SIGNED_IN)
+    }, [])
+  
   return (
     <div className="sidebar-part">
       <div className="sidebar-heading">
-        Nicole's Slack
-        <span className="compose-message-icon">
-          <i className="fa-regular fa-pen-to-square"></i>
-        </span>
+       {signedIn}
       </div>
       <div className="channels-dm-container">
         <Channels
-        showCurrentLabel={currentLabelVisible => setCurrentLabelVisible(true)}
-
-        /> 
+          showCurrentLabel={(currentLabelVisible) =>
+            setCurrentLabelVisible(true)
+          }
+          receiverID={receiverID}
+          setReceiverID={setReceiverID}
+          hideConversation={hideConversation}
+        />
         <DirectMessages
-        showCurrentLabel={currentLabelVisible => setCurrentLabelVisible(true)}
-        allUsers={props.allUsers}
-        receiverID={receiverID}
-        setReceiverID={setReceiverID}
-        receiverEmail={receiverEmail}
-        setReceiverEmail={setReceiverEmail}
-        hideConversation={hideConversation}
+          showCurrentLabel={(currentLabelVisible) =>
+            setCurrentLabelVisible(true)
+          }
+          allUsers={props.allUsers}
+          receiverID={receiverID}
+          setReceiverID={setReceiverID}
+          receiverEmail={receiverEmail}
+          setReceiverEmail={setReceiverEmail}
+          hideConversation={hideConversation}
         />
       </div>
       <div
@@ -53,8 +61,7 @@ const Sidebar = (props) => {
       >
         <span>{receiverID}</span>
         <div className="icon" onClick={hideConversation}>
-          <i className="fa-solid fa-xmark"
-          ></i>
+          <i className="fa-solid fa-xmark"></i>
         </div>
       </div>
     </div>

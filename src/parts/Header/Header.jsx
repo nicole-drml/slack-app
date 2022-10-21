@@ -10,16 +10,15 @@ const Header = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [active, setActive] = useState(false);
-  
-  
+
   const logoClick = () => {
     navigate("/");
-    localStorage.removeItem("RECEIVER")
   };
 
   return (
     <div className="header-part">
       <img src={logo} className="img-logo" onClick={logoClick}></img>
+      <span className="slack-span">Slack</span>
       <img
         src={avatar}
         className="img-avatar"

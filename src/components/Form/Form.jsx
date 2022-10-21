@@ -1,5 +1,3 @@
-// import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Form.scss";
 import logoWithText from "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/images/slack_with_text.png";
@@ -19,30 +17,6 @@ const Form = ({
 }) => {
   const navigate = useNavigate()
   
-// const accessToken = localStorage.getItem('access-token')
-// const client = localStorage.getItem('client')
-// const expiry = localStorage.getItem('expiry')
-// const uid = localStorage.getItem('uid')
-
-// const fetchUsers =() => {
-//   fetch('http://206.189.91.54/api/v1/users', {
-//     method: '',
-//     headers: {
-//       'access-token': accessToken,
-//       client: client,
-//       expiry: expiry,
-//       uid: uid
-//     }
-//   })
-//   .then((response) => response.json())
-//   .then((result) => console.log("rezzult", result))
-// }
-
-// useEffect(() => {
-// fetchUsers()
-// }, [])
-
-
   const handleEmail = (value) => {
     setEmail(value);
   };

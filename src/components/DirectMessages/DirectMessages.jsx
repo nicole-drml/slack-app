@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Conversation from "../../parts/Conversation";
-import Channels from "../Channels/Channels";
 
 import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/message-group.scss";
 
@@ -34,16 +33,12 @@ const DirectMessages = (props) => {
 
     if (receiver.length > 0) {
       addCredentials("RECEIVER", JSON.stringify(receiver));
-      console.log(receiver);
-
       props.showCurrentLabel();
-
       props.setReceiverID(receiver[0].id);
       props.setReceiverEmail(receiver[0].email);
       navigate(`/dashboard/direct/${id}/${receiver[0].id}`);
-      console.log("DIRECT_MESSAGES", DIRECT_MESSAGES);
     } else if (receiver.length === 0) {
-      props.hideConversation(true)
+      props.hideConversation(true);
       alert(`"${id}" user does not exist`);
     }
   };
@@ -64,7 +59,6 @@ const DirectMessages = (props) => {
     const updatedcontacts = contacts.filter((receiver) => receiver.id !== id);
     setContacts(updatedcontacts);
     localStorage.setItem("DIRECT_MESSAGES", JSON.stringify(updatedcontacts));
-    console.log("deleted DM", id);
   };
 
   const dropDown = () => {
@@ -124,7 +118,6 @@ const DirectMessages = (props) => {
                     >
                       {receiver.name}
                     </span>
-                    <i className="fa-solid fa-i-cursor icon"></i>
                     <i
                       className="fa-regular fa-trash-can icon"
                       onClick={() => handleDelete(receiver.id)}
@@ -137,13 +130,21 @@ const DirectMessages = (props) => {
         </div>
       )}
       {RECEIVER && (
-        <Conversation
-          allUsers={props.allUsers}
-          receiverID={props.receiverID}
-          setReceiverID={props.setReceiverID}
-          receiverEmail={props.receiverEmail}
-          setReceiverEmail={props.setReceiverEmail}
-        />
+        <Routes>
+          <Route
+            path="direct/:receiverEmail/:receiverID"
+            element={
+              <Conversation
+                allUsers={props.allUsers}
+                receiverID={props.receiverID}
+                setReceiverID={props.setReceiverID}
+                receiverEmail={props.receiverEmail}
+                setReceiverEmail={props.setReceiverEmail}
+                receiverClass="User"
+              />
+            }
+          />
+        </Routes>
       )}
     </div>
   );
