@@ -28,6 +28,9 @@ const DirectMessages = (props) => {
   };
 
   const handleSelectReceiver = async (id) => {
+    props.setChannelIsSelected(false)
+    localStorage.removeItem("CHANNEL_MEMBERS");
+    setCurrentConversation(true);
     const usersAPI = props.allUsers.data;
     let receiver = usersAPI.filter((user) => user.email === id);
 
@@ -65,6 +68,8 @@ const DirectMessages = (props) => {
     setDirectActive(!directActive);
   };
 
+  const [currentConversation, setCurrentConversation] = useState("");
+
   return (
     <div className="direct-messages-component">
       <div className="direct-messages-label message-group-label">
@@ -83,7 +88,7 @@ const DirectMessages = (props) => {
         <div className="settings-container">
           <div className="plus-icon icon">
             <i
-              className="fa-solid fa-plus"
+              className="fa-solid fa-plus icon"
               onClick={() => setShowReceiverInput(!showReceiverInput)}
             ></i>
           </div>
@@ -113,7 +118,11 @@ const DirectMessages = (props) => {
                 return (
                   <li className="recepient-li" key={receiver.id}>
                     <span
-                      className="conversation-name"
+                      className={
+                        "conversation-name" 
+                        // +
+                        // (currentConversation ? " active" : "")
+                      }
                       onClick={() => handleSelectReceiver(receiver.name)}
                     >
                       {receiver.name}

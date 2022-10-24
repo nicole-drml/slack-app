@@ -69,10 +69,15 @@
       .message {
         border-bottom: 0.5px solid $grey;
 
-        .sender-span {
+        .sender-p {
           color: $white;
           padding: 35px;
+          font-size: 0.95em;
+
+          .sender-span {
           font-size: 0.85em;
+            color: rgba($font-color, 0.75);
+          }
         }
         .message-text {
           padding: 10px 35px;

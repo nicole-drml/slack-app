@@ -58,12 +58,14 @@
     display: flex;
     align-items: center;
     transition: 300ms ease;
-    z-index: 999; 
+    z-index: 999;
+    background-color: $grey-violet;
 
     span {
       padding: 6px 5px 0;
       color: rgba($font-color, 0.7);
       @include text-ellipsis(80%);
+      flex-grow: 1;
     }
 
     &:hover > span {
@@ -73,30 +75,110 @@
     &:hover > .icon {
       color: $font-color;
     }
-    
+
     .icon {
       margin-top: 6px;
       margin-left: auto;
     }
+
+    .channel-members-container {
+      width: 100%;
+      position: relative;
+      z-index: 10;
+
+      .add-new-member-input-field {
+        width: 90%;
+        height: 30px;
+        margin-left: 6px;
+        padding: 3px 6px;
+        background-color: rgba($grey, 0.2);
+        border: 1px solid rgba($grey, 0.2);
+        color: rgba($font-color, 0.9);
+      }
+
+      .channel-members {
+        list-style: none;
+        padding: 6px 5px 0;
+        color: rgba($font-color, 0.7);
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        flex-grow: 1;
+        overflow-y: scroll;
+        max-height: 150px;
+
+        &::-webkit-scrollbar {
+          margin: 3px;
+          width: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: $grey;
+          border-radius: 20px;
+        }
+
+        &::-webkit-scrollbar-track {
+          margin: 5px 0 15px;
+        }
+      }
+
+      .current-channel-p {
+        text-align: center;
+        color: aqua;
+      }
+      .members-p {
+        margin-top: -10px;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .add-user-icon {
+        position: absolute;
+        top: 0;
+        margin-top: -2px;
+        padding: 1px;
+      }
+
+      .member-not-valid-p {
+        color: $red;
+        font-size: 0.85em;
+        text-align: center;
+        span {
+          text-decoration: underline;
+        }
+      }
+
+      .new-member-added-p {
+        font-size: 0.85em;
+        // color: rgb(85, 163, 85);
+        color: $green;
+        text-align: center;
+
+        span {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .icon {
+      color: $icon-color;
+      border-radius: 5px;
+      width: 25px;
+      height: 25px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+
+      &:hover {
+        color: $font-color;
+        background-color: rgba($grey, 0.3);
+      }
+    }
   }
 
   .hidden {
-    transform: translateY(40px);
+    transform: translateY(98%);
     pointer-events: none;
-  }
-
-  .icon {
-    color: $icon-color;
-    border-radius: 5px;
-    width: 25px;
-    height: 25px;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-
-    &:hover {
-      color: $font-color;
-      background-color: rgba($grey, 0.3);
-    }
   }
 }

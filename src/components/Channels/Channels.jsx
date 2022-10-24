@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import Conversation from "../../parts/Conversation";
@@ -7,12 +7,7 @@ import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/message-group
 
 import { AiOutlineUserAdd } from "react-icons/ai";
 
-
 const Channels = (props) => {
-  // let CHANNELS = localStorage.getItem("CHANNELS")
-  //   ? JSON.parse(localStorage.getItem("CHANNELS"))
-  //   : [];
-
   const addCredentials = (key, value) => {
     localStorage.setItem(key, value);
   };
@@ -21,20 +16,79 @@ const Channels = (props) => {
   const CHANNELS = JSON.parse(localStorage.getItem("CHANNELS"));
 
   const [channels, setChannels] = useState([]);
+  const [typedChannel, setTypedChannel] = useState("");
   const [newChannel, setNewChannel] = useState("");
 
+  const [channelName, setChannelName] = useState("");
   const [enterNewChannel, setenterNewChannel] = useState("");
-  const [channelName, setChannelName] = useState("")
 
   const [channelsActive, setChannelsActive] = useState(false);
+
   const [showChannelInput, setShowChannelInput] = useState(false);
 
   const navigate = useNavigate();
   // const [channelID, setChannelI] = useState("");
 
-  const handleAddChannel = (value) => {
-    setNewChannel(value);
+  const [channelExists, setChannelExists] = useState(false);
+  const [enteredValue, setEnteredValue] = useState(false);
+  const handleTypeNewChannel = (value) => {
+    setTypedChannel(value);
   };
+
+  const showInput = () => {
+    setShowChannelInput(true);
+    setTypedChannel("");
+    setChannelExists(false);
+    setenterNewChannel('')
+  };
+
+  const handleEnterNewChannel = (value) => {
+    setenterNewChannel(value);
+    if (props.selectedChannelInfo) {
+      setChannelExists(
+        props.selectedChannelInfo.find(
+          (channel) => channel.name.toString() === value.toString()
+        )
+      );
+    }
+    console.log("props.selectedChannelInfo.name", props.selectedChannelInfo.name);
+    // setTypedChannel("")
+    setEnteredValue(!enteredValue);
+    console.log("props.selectedChannelInfo", props.selectedChannelInfo);
+    setShowChannelInput(false)
+  };
+
+  useEffect(() => {
+    // channelName
+    const data = {
+      name: enterNewChannel,
+      user_ids: [],
+    };
+
+    if (!channelExists) {
+      fetch("http://206.189.91.54/api/v1/channels", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "access-token": accessToken,
+          client: client,
+          expiry: expiry,
+          uid: uid,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((result) => {
+          // navigate("/dashboard");
+          renderAllChannels();
+          setShowChannelInput(false);
+        });
+    } 
+    console.log("channelExists", channelExists);
+    console.log("enterNewChannel", enterNewChannel);
+  }, [enteredValue]);
 
   const [selectedChannel, setSelectedChannel] = useState("");
 
@@ -51,6 +105,7 @@ const Channels = (props) => {
 
   const renderAllChannels = async () => {
     setChannelsActive(!channelsActive);
+    setChannelExists(false)
 
     return await fetch("http://206.189.91.54/api/v1/channels", {
       method: "GET",
@@ -76,28 +131,19 @@ const Channels = (props) => {
       });
   };
 
-  // const [channelID, setChannelID] = useState("");
-
   const handleSelectChannel = (channel, id) => {
     addCredentials("RECEIVER", JSON.stringify(channel));
     setSelectedChannel(channel);
     props.setReceiverID(id);
     props.showCurrentLabel();
-    setChannelName(channel.name)
-    console.log("id", id);
-
-    console.log("the channel", channel);
-    console.log("channel.name", channel.name);
-    console.log("channel.id", channel.id);
-
+    setChannelName(channel.name);
+    props.setMemberAlready(false);
+    props.setChannelIsSelected(true);
     navigate(`/dashboard/channel/${channel.name}/${channel.id}`);
+    console.log("yup");
+    props.setNewMemberAdded(false);
+    props.setNewMemberToVerify("");
   };
-
-
-
-  // useEffect(() => {
-
-  // }, [])
 
   return (
     <div className="channels-component">
@@ -107,7 +153,7 @@ const Channels = (props) => {
           onClick={renderAllChannels}
         >
           <i
-            className="fa-solid fa-caret-right"
+            className="fa-solid fa-caret-right icon"
             onClick={() => setShowChannelInput(!showChannelInput)}
           ></i>
         </div>
@@ -120,24 +166,31 @@ const Channels = (props) => {
         <div className="settings-container">
           <div className="plus-icon icon">
             <i
-              className="fa-solid fa-plus"
-              onClick={() => setShowChannelInput(!showChannelInput)}
+              className="fa-solid fa-plus icon"
+              onClick={showInput}
+              // onClick={() => setShowChannelInput(!showChannelInput)}
             ></i>
           </div>
         </div>
       </div>
+
+
       {channelsActive && (
         <div className="conversations-list-container channels-list">
+                {channelExists &&
+          <span className="channel-alrady-exists">{enterNewChannel} already exists</span>
+          }
           {showChannelInput && (
             <input
               type="text"
-              value={newChannel}
-              onChange={(e) => handleAddChannel(e.target.value)}
-              // onKeyPress={(e) => {
-              //   if (e.key === "Enter") {
-              //     setAddMembers({ name: e.target.value });
-              //   }
-              // }}
+              value={typedChannel}
+              onChange={(e) => handleTypeNewChannel(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleEnterNewChannel(e.target.value);
+                  setTypedChannel("");
+                }
+              }}
               placeholder="new channel"
               className="add-receiver-input-field"
             ></input>
@@ -155,8 +208,6 @@ const Channels = (props) => {
                     >
                       {channel.name}
                     </span>
-                    {/* <i class="fa-regular fa-user-plus icon"></i> */}
-                    <AiOutlineUserAdd className="add-user-icon icon" />
                   </li>
                 );
               })

@@ -79,7 +79,6 @@ const Conversation = (props) => {
   };
 
   useEffect(() => {
-    console.log(props.receiverClass);
     getConversations();
   }, [props.receiverID]);
 
@@ -107,8 +106,16 @@ const Conversation = (props) => {
             conversationArray.map((convesationText) => {
               return (
                 <li className="message">
-                  <span className="sender-span">
+                  <span className="sender-p">
                     {convesationText.sender.uid}
+
+                    { props.receiverClass === "Channel" && 
+                     <span className="sender-span">
+                     {" "}
+                     ({convesationText.sender.id})
+                   </span>
+                    }
+                   
                   </span>
                   <p className="message-text">{convesationText.body}</p>
                 </li>
