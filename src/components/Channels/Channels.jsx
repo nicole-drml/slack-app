@@ -26,7 +26,7 @@ const Channels = (props) => {
   const [channelExists, setChannelExists] = useState(false);
   const [enteredValue, setEnteredValue] = useState(false);
   const [selectedChannel, setSelectedChannel] = useState("");
-  const [hasError, setHasError] = useState("")
+  const [hasError, setHasError] = useState("");
 
   const handleTypeNewChannel = (value) => {
     setTypedChannel(value);
@@ -50,7 +50,7 @@ const Channels = (props) => {
     }
     setEnteredValue(true);
     setShowChannelInput(false);
-    console.log("entered1")
+    console.log("entered1");
   };
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const Channels = (props) => {
           renderAllChannels();
           setShowChannelInput(false);
           setTypedChannel("");
-          setHasError(result.errors[0])
+          setHasError(result.errors[0]);
         });
     }
   }, [enterNewChannel]);
@@ -86,7 +86,7 @@ const Channels = (props) => {
   const renderAllChannels = async () => {
     setChannelsActive(!channelsActive);
     setChannelExists(false);
-    setHasError(false)
+    setHasError(false);
 
     await fetch("http://206.189.91.54/api/v1/channels", {
       method: "GET",
@@ -115,7 +115,7 @@ const Channels = (props) => {
     navigate(`/dashboard/channel/${channel.name}/${channel.id}`);
     props.setNewMemberAdded(false);
     props.setNewMemberToVerify("");
-    setHasError(false)
+    setHasError(false);
   };
 
   return (
@@ -125,9 +125,7 @@ const Channels = (props) => {
           className={"caret-icon icon " + (channelsActive ? "rotate-icon" : "")}
           onClick={renderAllChannels}
         >
-          <i
-            className="fa-solid fa-caret-right icon"
-          ></i>
+          <i className="fa-solid fa-caret-right icon"></i>
         </div>
         <span
           className={"message-group-span " + (channelsActive ? "active" : "")}
@@ -150,9 +148,9 @@ const Channels = (props) => {
           )}
           {hasError && (
             <div className="channel-alrady-exists">
-              <span> { hasError } </span>
+              <span> {hasError} </span>
             </div>
-            )}
+          )}
           {showChannelInput && (
             <input
               type="text"

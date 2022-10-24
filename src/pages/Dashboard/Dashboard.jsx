@@ -30,8 +30,6 @@ const Dashboard = (props) => {
   const contentType = localStorage.getItem("content-type");
 
   const [error, setError] = useState("");
-  const [hasError, setHasError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const fetchUsers = async () => {
     await fetch("http://206.189.91.54/api/v1/users", {
@@ -46,18 +44,9 @@ const Dashboard = (props) => {
       .then(async (response) => await response.json())
       .then((result) => {
         setAllUsers(result);
-        setIsLoading(false);
-        setHasError(false);
-        console.log("result", result);
-        console.log("0", allUsers.data[0]);
-        console.log("thisisit", allUsers);
-        console.log(".data", allUsers.data);
-        console.log(".zero,email", allUsers.data[0].email);
       })
       .catch((error) => {
-        setHasError(true);
         setError(JSON.stringify(error));
-        setIsLoading(true);
       });
   };
 
