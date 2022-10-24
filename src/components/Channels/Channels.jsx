@@ -26,7 +26,6 @@ const Channels = (props) => {
   const [channelExists, setChannelExists] = useState(false);
   const [enteredValue, setEnteredValue] = useState(false);
   const [selectedChannel, setSelectedChannel] = useState("");
-  const [hasError, setHasError] = useState("");
 
   const handleTypeNewChannel = (value) => {
     setTypedChannel(value);
@@ -59,7 +58,7 @@ const Channels = (props) => {
       user_ids: [],
     };
 
-    if (channelExists === undefined) {
+    if (!channelExists) {
       fetch("http://206.189.91.54/api/v1/channels", {
         method: "POST",
         body: JSON.stringify(data),
@@ -77,16 +76,15 @@ const Channels = (props) => {
         .then((result) => {
           renderAllChannels();
           setShowChannelInput(false);
-          setTypedChannel("");
-          setHasError(result.errors[0]);
         });
     }
+    setTypedChannel("");
+    console.log("channelExists", channelExists);
   }, [enterNewChannel]);
 
   const renderAllChannels = async () => {
     setChannelsActive(!channelsActive);
     setChannelExists(false);
-    setHasError(false);
 
     await fetch("http://206.189.91.54/api/v1/channels", {
       method: "GET",
@@ -115,7 +113,6 @@ const Channels = (props) => {
     navigate(`/dashboard/channel/${channel.name}/${channel.id}`);
     props.setNewMemberAdded(false);
     props.setNewMemberToVerify("");
-    setHasError(false);
   };
 
   return (
@@ -144,11 +141,6 @@ const Channels = (props) => {
           {channelExists && (
             <div className="channel-alrady-exists">
               <span>{enterNewChannel} already exists</span>
-            </div>
-          )}
-          {hasError && (
-            <div className="channel-alrady-exists">
-              <span> {hasError} </span>
             </div>
           )}
           {showChannelInput && (
