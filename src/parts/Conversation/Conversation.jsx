@@ -39,6 +39,7 @@ const Conversation = (props) => {
       .then((response) => response.json())
       .then((result) => {
         setMessage("");
+        getConversations()
       })
       .catch((error) => {
         setError(error);

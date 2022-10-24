@@ -145,7 +145,7 @@
         font-size: 0.85em;
         text-align: center;
         span {
-          text-decoration: underline;
+          color: $red;
         }
       }
 
@@ -156,7 +156,7 @@
         text-align: center;
 
         span {
-          text-decoration: underline;
+          color: $green;
         }
       }
     }

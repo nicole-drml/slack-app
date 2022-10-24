@@ -25,7 +25,10 @@ const DirectMessages = (props) => {
 
   const handleAddReceiver = (value) => {
     setNewContact(value);
+
+    console.log("value", value)
   };
+
 
   const handleSelectReceiver = async (id) => {
     props.setChannelIsSelected(false)
@@ -51,13 +54,18 @@ const DirectMessages = (props) => {
       const receiver = newContact;
       const id = JSON.stringify(new Date().getTime());
       const updated = [{ name: receiver, id: id }, ...DIRECT_MESSAGES];
-      localStorage.setItem("DIRECT_MESSAGES", JSON.stringify(updated));
+      addCredentials("DIRECT_MESSAGES", JSON.stringify(updated));
+      // localStorage.setItem("DIRECT_MESSAGES", JSON.stringify(updated));
       setContacts(updated);
       setShowReceiverInput(!showReceiverInput);
       setNewContact("");
     }
   }, [enterNewContact]);
 
+
+
+
+  
   const handleDelete = (id) => {
     const updatedcontacts = contacts.filter((receiver) => receiver.id !== id);
     setContacts(updatedcontacts);

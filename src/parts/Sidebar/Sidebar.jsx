@@ -104,7 +104,6 @@ const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
     );
     setCheckMembership(!checkMembership);
     setNewTypedMember("");
-    console.log("entered");
     setClickAddMember(!clickAddMember)
   };
 
@@ -114,9 +113,6 @@ const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
         (member) => member.user_id === newMemberToVerify.id
       )
     );
-    console.log("mem?", memberAlready);
-    console.log("useeffect");
-    console.log("enterNewMember", enterNewMember);
     setMembershipStatus(!membershipStatus);
   }, [checkMembership]);
 
@@ -147,7 +143,6 @@ const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
         .then((result) => {
           if (result.success === false) {
             setErrorMessage(result.errors[0]);
-            console.log("errorMessage", errorMessage);
           } else {
             setNewMemberAdded(true)
             getChannelMembers()
@@ -225,7 +220,6 @@ const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
                 onChange={(e) => handleTypeNewMember(e.target.value)}
                 onKeyPress={(e) => {
                   if (e.key === "Enter") {
-                    // setEnterNewMember({ id: e.target.value });
                     handleEnterNewMember(e.target.value);
                   }
                 }}
@@ -257,7 +251,7 @@ const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
                   {" "}
                   {newMemberToVerify.id}{" "}
                 </span>{" "}
-                added as new member
+              added as new member
               </p>
             )}
           </div>
