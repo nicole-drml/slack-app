@@ -5,33 +5,31 @@ import Conversation from "../../parts/Conversation";
 import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/message-group.scss";
 
 const DirectMessages = (props) => {
+  const navigate = useNavigate();
+
   const DIRECT_MESSAGES = localStorage.getItem("DIRECT_MESSAGES")
     ? JSON.parse(localStorage.getItem("DIRECT_MESSAGES"))
     : [];
+  const RECEIVER = JSON.parse(localStorage.getItem("RECEIVER"));
 
   const addCredentials = (key, value) => {
     localStorage.setItem(key, value);
   };
-  const RECEIVER = JSON.parse(localStorage.getItem("RECEIVER"));
 
   const [contacts, setContacts] = useState(DIRECT_MESSAGES);
   const [newContact, setNewContact] = useState("");
-
   const [enterNewContact, setEnterNewContact] = useState("");
   const [directActive, setDirectActive] = useState(false);
   const [showReceiverInput, setShowReceiverInput] = useState(false);
 
-  const navigate = useNavigate();
+  const [currentConversation, setCurrentConversation] = useState("");
 
   const handleAddReceiver = (value) => {
     setNewContact(value);
-
-    console.log("value", value)
   };
 
-
   const handleSelectReceiver = async (id) => {
-    props.setChannelIsSelected(false)
+    props.setChannelIsSelected(false);
     localStorage.removeItem("CHANNEL_MEMBERS");
     setCurrentConversation(true);
     const usersAPI = props.allUsers.data;
@@ -55,17 +53,12 @@ const DirectMessages = (props) => {
       const id = JSON.stringify(new Date().getTime());
       const updated = [{ name: receiver, id: id }, ...DIRECT_MESSAGES];
       addCredentials("DIRECT_MESSAGES", JSON.stringify(updated));
-      // localStorage.setItem("DIRECT_MESSAGES", JSON.stringify(updated));
       setContacts(updated);
       setShowReceiverInput(!showReceiverInput);
       setNewContact("");
     }
   }, [enterNewContact]);
 
-
-
-
-  
   const handleDelete = (id) => {
     const updatedcontacts = contacts.filter((receiver) => receiver.id !== id);
     setContacts(updatedcontacts);
@@ -75,8 +68,6 @@ const DirectMessages = (props) => {
   const dropDown = () => {
     setDirectActive(!directActive);
   };
-
-  const [currentConversation, setCurrentConversation] = useState("");
 
   return (
     <div className="direct-messages-component">
@@ -126,11 +117,7 @@ const DirectMessages = (props) => {
                 return (
                   <li className="recepient-li" key={receiver.id}>
                     <span
-                      className={
-                        "conversation-name" 
-                        // +
-                        // (currentConversation ? " active" : "")
-                      }
+                      className={"conversation-name"}
                       onClick={() => handleSelectReceiver(receiver.name)}
                     >
                       {receiver.name}

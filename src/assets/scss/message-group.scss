@@ -44,7 +44,6 @@
     margin-left: auto;
     visibility: hidden;
   }
-
 }
 
 .conversations-list-container {
@@ -75,7 +74,6 @@
     margin: 5px 0 5px;
   }
 
-
   .channel-alrady-exists {
     color: $red;
     font-weight: 400;
@@ -83,7 +81,7 @@
     display: flex;
     justify-content: center;
   }
-  
+
   .add-receiver-input-field {
     width: 90%;
     height: 30px;
@@ -120,11 +118,6 @@
     &:hover > .icon {
       visibility: visible;
     }
-
-    // .add-user-icon {
-    //   background-color: red;
-    // }
-
   }
 
   .icon {

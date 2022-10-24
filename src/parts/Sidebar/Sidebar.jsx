@@ -2,20 +2,34 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Sidebar.scss";
-
 import Channels from "/Users/nicoledoromal/AvionSchool/slack-app/src/components/Channels/Channels.jsx";
 import DirectMessages from "../../components/DirectMessages/DirectMessages.jsx";
 
 import { AiOutlineUserAdd } from "react-icons/ai";
 
 const Sidebar = (props) => {
-  const allUsers = props.allUsers.data;
-  const [currentLabelVisible, setCurrentLabelVisible] = useState(false);
-
   const navigate = useNavigate();
 
-  const CHANNEL_MEMBERS = localStorage.getItem("CHANNEL_MEMBERS");
   const SIGNED_IN = localStorage.getItem("SIGNED_IN");
+
+  const [currentLabelVisible, setCurrentLabelVisible] = useState(false);
+  const [receiverID, setReceiverID] = useState("");
+  const [receiverEmail, setReceiverEmail] = useState("");
+  const [signedIn, setSignedIn] = useState("");
+  const [channelIsSelected, setChannelIsSelected] = useState(null);
+  const [channelMembersArray, setChannelMembersArray] = useState([]);
+  const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
+
+  const [clickAddMember, setClickAddMember] = useState(false);
+  const [channelID, setChannelID] = useState("");
+  const [newTypedMember, setNewTypedMember] = useState("");
+  const [newMemberToVerify, setNewMemberToVerify] = useState("");
+
+  const [enterNewMember, setEnterNewMember] = useState("");
+  const [checkMembership, setCheckMembership] = useState(null);
+  const [memberAlready, setMemberAlready] = useState(null);
+  const [membershipStatus, setMembershipStatus] = useState(null);
+  const [newMemberAdded, setNewMemberAdded] = useState(false);
 
   const hideConversation = () => {
     setCurrentLabelVisible(false);
@@ -23,24 +37,10 @@ const Sidebar = (props) => {
     localStorage.removeItem("RECEIVER");
   };
 
-  const [receiverID, setReceiverID] = useState("");
-  const [receiverEmail, setReceiverEmail] = useState("");
-  const [signedIn, setSignedIn] = useState("");
-
-  const [channelIsSelected, setChannelIsSelected] = useState(null);
-
-  const [channelMembersArray, setChannelMembersArray] = useState([]);
-
   const accessToken = localStorage.getItem("access-token");
   const client = localStorage.getItem("client");
   const expiry = localStorage.getItem("expiry");
   const uid = localStorage.getItem("uid");
-
-  const [error, setError] = useState("");
-  const [hasError, setHasError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
-const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
 
   const getChannelMembers = async () => {
     await fetch(`http://206.189.91.54/api/v1/channels/${receiverID}`, {
@@ -54,30 +54,15 @@ const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
     })
       .then((response) => response.json())
       .then((result) => {
-        setIsLoading(false);
-        setHasError(false);
-        setSelectedChannelInfo(result.data)
-        console.log("getmembers", result.data);
-        console.log("channel_members", result.data.channel_members);
-        console.log("result.data.id", result.data.id);
+        setSelectedChannelInfo(result.data);
         setChannelMembersArray(result.data.channel_members);
-      })
-      .catch((error) => {
-        setHasError(true);
-        setError(JSON.stringify(error));
-        setIsLoading(true);
-        console.log("urr", error);
       });
   };
 
-  const [clickAddMember, setClickAddMember] = useState(false);
-  const [channelID, setChannelID] = useState("");
-
   const clickAddMemberIcon = (channelID) => {
-    setNewMemberAdded(false)
+    setNewMemberAdded(false);
     setClickAddMember(!clickAddMember);
     setChannelID(channelID);
-    console.log("what channelchannelID", channelID);
   };
 
   useEffect(() => {
@@ -85,17 +70,9 @@ const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
     setClickAddMember(false);
   }, [receiverID]);
 
-  const [newTypedMember, setNewTypedMember] = useState("");
-  const [newMemberToVerify, setNewMemberToVerify] = useState("");
-
   const handleTypeNewMember = (value) => {
     setNewTypedMember(value);
   };
-
-  const [enterNewMember, setEnterNewMember] = useState("");
-  const [checkMembership, setCheckMembership] = useState(null);
-  const [memberAlready, setMemberAlready] = useState(null);
-  const [membershipStatus, setMembershipStatus] = useState(null);
 
   const handleEnterNewMember = (value) => {
     setEnterNewMember(value);
@@ -104,20 +81,20 @@ const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
     );
     setCheckMembership(!checkMembership);
     setNewTypedMember("");
-    setClickAddMember(!clickAddMember)
+    setClickAddMember(!clickAddMember);
   };
 
-  useEffect(() => {
-    setMemberAlready(
-      channelMembersArray.some(
-        (member) => member.user_id === newMemberToVerify.id
+  useEffect( () => {
+    (async () => {
+      setMemberAlready(
+        channelMembersArray.some(
+          (member) => member.user_id === newMemberToVerify.id
+        )
       )
-    );
+    })();
+
     setMembershipStatus(!membershipStatus);
   }, [checkMembership]);
-
-  const [errorMessage, setErrorMessage] = useState("");
-  const [newMemberAdded, setNewMemberAdded] = useState(false);
 
   useEffect(() => {
     if (!memberAlready) {
@@ -141,23 +118,17 @@ const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
           return response.json();
         })
         .then((result) => {
-          if (result.success === false) {
-            setErrorMessage(result.errors[0]);
-          } else {
-            setNewMemberAdded(true)
-            getChannelMembers()
-          }
+          setNewMemberAdded(true);
+          getChannelMembers();
         });
     }
-    console.log("useeffectworked");
   }, [membershipStatus]);
-
 
   useEffect(() => {
     setSignedIn(SIGNED_IN);
-    setNewMemberAdded(false)
+    setNewMemberAdded(false);
   }, []);
-  
+
   return (
     <div className="sidebar-part">
       <div className="sidebar-heading">{signedIn}</div>
@@ -168,14 +139,7 @@ const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
           }
           receiverID={receiverID}
           setReceiverID={setReceiverID}
-          channelMembers={channelMembersArray}
-          setChannelMembers={setChannelMembersArray}
-          channelIsSelected={channelIsSelected}
           setChannelIsSelected={setChannelIsSelected}
-          clickAddMember={clickAddMember}
-          setClickAddMember={setClickAddMember}
-          clickAddMemberIcon={clickAddMemberIcon}
-          hideConversation={hideConversation}
           setMemberAlready={setMemberAlready}
           setNewMemberAdded={setNewMemberAdded}
           setNewMemberToVerify={setNewMemberToVerify}
@@ -206,10 +170,9 @@ const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
             <p className="current-channel-p">CHANNEL {receiverID}</p>
 
             <AiOutlineUserAdd
-                      className=
-                        "add-user-icon icon"
-                      onClick={() => clickAddMemberIcon(receiverID)}
-                    />
+              className="add-user-icon icon"
+              onClick={() => clickAddMemberIcon(receiverID)}
+            />
 
             <br></br>
             <p className="members-p">members</p>
@@ -244,14 +207,14 @@ const [selectedChannelInfo, setSelectedChannelInfo] = useState("");
                 </span>{" "}
                 is already a member
               </p>
-            )}            
+            )}
             {newMemberAdded && (
               <p className="new-member-added-p">
                 <span className="new-member-added-span">
                   {" "}
                   {newMemberToVerify.id}{" "}
                 </span>{" "}
-              added as new member
+                added as new member
               </p>
             )}
           </div>

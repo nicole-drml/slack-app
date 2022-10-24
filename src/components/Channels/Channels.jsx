@@ -5,35 +5,35 @@ import Conversation from "../../parts/Conversation";
 
 import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/message-group.scss";
 
-import { AiOutlineUserAdd } from "react-icons/ai";
-
 const Channels = (props) => {
+  const navigate = useNavigate();
   const addCredentials = (key, value) => {
     localStorage.setItem(key, value);
   };
-
   const RECEIVER = JSON.parse(localStorage.getItem("RECEIVER"));
-  // const CHANNELS = JSON.parse(localStorage.getItem("CHANNELS"));
+  const accessToken = localStorage.getItem("access-token");
+  const client = localStorage.getItem("client");
+  const expiry = localStorage.getItem("expiry");
+  const uid = localStorage.getItem("uid");
+  const contentType = localStorage.getItem("content-type");
 
-  const [channels, setChannels] = useState([]);
+  const [channels, setChannels] = useState(null);
   const [typedChannel, setTypedChannel] = useState("");
   const [channelName, setChannelName] = useState("");
   const [enterNewChannel, setenterNewChannel] = useState("");
-
   const [channelsActive, setChannelsActive] = useState(false);
-
   const [showChannelInput, setShowChannelInput] = useState(false);
-
-  const navigate = useNavigate();
-
   const [channelExists, setChannelExists] = useState(false);
   const [enteredValue, setEnteredValue] = useState(false);
+  const [selectedChannel, setSelectedChannel] = useState("");
+  const [hasError, setHasError] = useState("")
+
   const handleTypeNewChannel = (value) => {
     setTypedChannel(value);
   };
 
   const showInput = () => {
-    setShowChannelInput(true);
+    setShowChannelInput(!showChannelInput);
     setTypedChannel("");
     setChannelExists(false);
     setenterNewChannel("");
@@ -47,25 +47,19 @@ const Channels = (props) => {
           (channel) => channel.name.toString() === value.toString()
         )
       );
-      console.log(
-        "props.selectedChannelInfo.name",
-        props.selectedChannelInfo.name
-      );
     }
-    // setTypedChannel("")
-    setEnteredValue(!enteredValue);
-    console.log("props.selectedChannelInfo", props.selectedChannelInfo);
+    setEnteredValue(true);
     setShowChannelInput(false);
+    console.log("entered1")
   };
 
   useEffect(() => {
-    // channelName
     const data = {
       name: enterNewChannel,
       user_ids: [],
     };
 
-    if (!channelExists) {
+    if (channelExists === undefined) {
       fetch("http://206.189.91.54/api/v1/channels", {
         method: "POST",
         body: JSON.stringify(data),
@@ -81,33 +75,20 @@ const Channels = (props) => {
           return response.json();
         })
         .then((result) => {
-          // navigate("/dashboard");
           renderAllChannels();
           setShowChannelInput(false);
+          setTypedChannel("");
+          setHasError(result.errors[0])
         });
     }
-    console.log("channelExists", channelExists);
-    console.log("enterNewChannel", enterNewChannel);
-  }, [enteredValue]);
-
-  const [selectedChannel, setSelectedChannel] = useState("");
-
-  const accessToken = localStorage.getItem("access-token");
-  const client = localStorage.getItem("client");
-  const expiry = localStorage.getItem("expiry");
-  const uid = localStorage.getItem("uid");
-  const contentType = localStorage.getItem("content-type");
-
-  const [error, setError] = useState("");
-  const [hasError, setHasError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  }, [enterNewChannel]);
 
   const renderAllChannels = async () => {
     setChannelsActive(!channelsActive);
     setChannelExists(false);
+    setHasError(false)
 
-    return await fetch("http://206.189.91.54/api/v1/channels", {
+    await fetch("http://206.189.91.54/api/v1/channels", {
       method: "GET",
       headers: {
         "Content-Type": contentType,
@@ -119,15 +100,7 @@ const Channels = (props) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        setMessage("");
         setChannels(result.data);
-        // addCredentials("CHANNELS", JSON.stringify(result.data));
-      })
-      .catch((error) => {
-        setError(error);
-        setHasError(true);
-        setIsLoading(true);
-        console.log("err", error);
       });
   };
 
@@ -142,6 +115,7 @@ const Channels = (props) => {
     navigate(`/dashboard/channel/${channel.name}/${channel.id}`);
     props.setNewMemberAdded(false);
     props.setNewMemberToVerify("");
+    setHasError(false)
   };
 
   return (
@@ -153,7 +127,6 @@ const Channels = (props) => {
         >
           <i
             className="fa-solid fa-caret-right icon"
-            onClick={() => setShowChannelInput(!showChannelInput)}
           ></i>
         </div>
         <span
@@ -164,14 +137,10 @@ const Channels = (props) => {
         </span>
         <div className="settings-container">
           <div className="plus-icon icon">
-            <i
-              className="fa-solid fa-plus icon"
-              onClick={showInput}
-            ></i>
+            <i className="fa-solid fa-plus icon" onClick={showInput}></i>
           </div>
         </div>
       </div>
-
       {channelsActive && (
         <div className="conversations-list-container channels-list">
           {channelExists && (
@@ -179,6 +148,11 @@ const Channels = (props) => {
               <span>{enterNewChannel} already exists</span>
             </div>
           )}
+          {hasError && (
+            <div className="channel-alrady-exists">
+              <span> { hasError } </span>
+            </div>
+            )}
           {showChannelInput && (
             <input
               type="text"
@@ -195,7 +169,7 @@ const Channels = (props) => {
             ></input>
           )}
           <ul>
-            {channels.length === 0 ? (
+            {!channels ? (
               <span className="default-empty-span">No channels yet</span>
             ) : (
               channels.map((channel) => {
@@ -220,7 +194,6 @@ const Channels = (props) => {
             path="channel/:channelName/:channelID"
             element={
               <Conversation
-                // allUsers={props.allUsers}
                 receiverID={props.receiverID}
                 setReceiverID={props.setReceiverID}
                 channelName={channelName}

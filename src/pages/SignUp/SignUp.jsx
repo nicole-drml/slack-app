@@ -6,7 +6,6 @@ import "./SignUp.scss";
 const SignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { purpose } = location.pathname.split("/").pop();
 
   const toSignIn = () => {
     navigate("/signin");
@@ -42,13 +41,10 @@ const SignUp = () => {
           return response.json();
         })
         .then((result) => {
-          // console.log("result", result);
-          // console.log("result.status", result.status);
           if (result.status === "error") {
             setErrorMessage(result.errors.full_messages);
           }
         });
-      console.log("hello yes");
     } else {
       setErrorMessage("Passwords do not match");
     }

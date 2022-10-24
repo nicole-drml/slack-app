@@ -45,7 +45,6 @@ const Conversation = (props) => {
         setError(error);
         setHasError(true);
         setIsLoading(true);
-        console.log("err", error);
       });
   };
 
@@ -68,14 +67,12 @@ const Conversation = (props) => {
       .then((result) => {
         setIsLoading(false);
         setHasError(false);
-        console.log("convo", result.data);
         setConversationArray(result.data);
       })
       .catch((error) => {
         setHasError(true);
         setError(JSON.stringify(error));
         setIsLoading(true);
-        console.log("urr", error);
       });
   };
 

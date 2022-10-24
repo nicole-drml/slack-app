@@ -7,6 +7,8 @@ import Header from "/Users/nicoledoromal/AvionSchool/slack-app/src/parts/Header/
 import './Dashboard.scss'
 
 const Dashboard = (props) => {
+
+
   const navigate = useNavigate();
 
   const SIGNED_IN = localStorage.getItem("SIGNED_IN")
@@ -64,18 +66,6 @@ const Dashboard = (props) => {
     navigate('/dashboard');
     localStorage.removeItem("RECEIVER")
   }, []);
-
-
-//   useEffect(() => {
-//   (async () => {
-//        await fetchUsers();
-//        console.log("all", allUsers);
-//   })()
-//   }, [])
-
-
-  // const [receiverId, setReceiverId] = useState("");
-  //  const [convoVisibility, setConvoVisibility] = useState(false)
 
   return (
     <div className="dashboard-page">

@@ -9,7 +9,6 @@ const SignIn = () => {
     : "";
   const navigate = useNavigate();
   const location = useLocation();
-  const { purpose } = location.pathname.split("/").pop();
 
   const toSignUp = () => {
     navigate("/signup");
@@ -17,7 +16,6 @@ const SignIn = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const signedIn = localStorage.getItem("SIGNED_IN");
 
   const addCredentials = (key, value) => {
     localStorage.setItem(key, value);
