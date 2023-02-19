@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AccountSettingsModal from "/Users/nicoledoromal/AvionSchool/slack-app/src/components/AccountSettingsModal/AccountSettingsModal.jsx";
 
 import "./Header.scss";
-import logo from "../../images/slack_mark.png";
+import logo from "../../assets/images/slack_mark.png";
 import avatar from "../../assets/images/CryptoFluff_0026.jpg";
 
 const Header = () => {
