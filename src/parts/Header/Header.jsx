@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AccountSettingsModal from "/Users/nicoledoromal/AvionSchool/slack-app/src/components/AccountSettingsModal/AccountSettingsModal.jsx";
+import AccountSettingsModal from "../../components/AccountSettingsModal/AccountSettingsModal.jsx";
 
 import "./Header.scss";
 import logo from "../../assets/images/slack_mark.png";

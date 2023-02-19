@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Sidebar.scss";
-import Channels from "/Users/nicoledoromal/AvionSchool/slack-app/src/components/Channels/Channels.jsx";
+import Channels from "../../components/Channels/Channels.jsx";
 import DirectMessages from "../../components/DirectMessages/DirectMessages.jsx";
 
 import { AiOutlineUserAdd } from "react-icons/ai";
