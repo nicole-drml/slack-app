@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Conversation from "../../parts/Conversation";
 
-import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/message-group.scss";
+import "../../src/assets/scss/message-group.scss";
 
 const DirectMessages = (props) => {
   const navigate = useNavigate();

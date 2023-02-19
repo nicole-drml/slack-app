@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 
 import Conversation from "../../parts/Conversation";
 
-import "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/scss/message-group.scss";
+import "../../ssets/scss/message-group.scss";
 
 const Channels = (props) => {
   const navigate = useNavigate();

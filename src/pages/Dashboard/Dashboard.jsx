@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../parts/Sidebar/Sidebar.jsx";
-import Header from "/Users/nicoledoromal/AvionSchool/slack-app/src/parts/Header/Header.jsx";
+import Header from "../../nicoledoromal/AvionSchool/slack-app/src/parts/Header/Header.jsx";
 
 
 import './Dashboard.scss'

@@ -1,7 +1,7 @@
 import "./NotFound.scss";
 import { useNavigate } from "react-router-dom";
 
-import logoGif from "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/images/slack_animation.gif";
+import logoGif from "../../assets/images/slack_animation.gif";
 const NotFound = () => {
   const navigate = useNavigate();
   return (

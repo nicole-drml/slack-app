@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./Form.scss";
-import logoWithText from "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/images/slack_with_text.png";
+import logoWithText from "../../src/assets/images/slack_with_text.png";
 
 const Form = ({
   formTitle,
