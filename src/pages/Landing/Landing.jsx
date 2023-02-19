@@ -1,5 +1,5 @@
-import logoWithText from "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/images/slack_with_white_text.png";
-import bodyImage from "/Users/nicoledoromal/AvionSchool/slack-app/src/assets/images/landing-body.png";
+import logoWithText from "../../assets/images/slack_with_white_text.png";
+import bodyImage from "../../assets/images/landing-body.png";
 import "./Landing.scss";
 import { useNavigate } from "react-router-dom";
 
