@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import Conversation from "../../parts/Conversation";
+import Conversation from "../../parts/Conversation/Conversation.jsx";
 
-import "../../ssets/scss/message-group.scss";
+import "../../assets/scss/message-group.scss";
 
 const Channels = (props) => {
   const navigate = useNavigate();
