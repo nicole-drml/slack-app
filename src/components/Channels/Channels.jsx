@@ -49,7 +49,6 @@ const Channels = (props) => {
     }
     setEnteredValue(true);
     setShowChannelInput(false);
-    console.log("entered1");
   };
 
   useEffect(() => {
@@ -79,7 +78,6 @@ const Channels = (props) => {
         });
     }
     setTypedChannel("");
-    console.log("channelExists", channelExists);
   }, [enterNewChannel]);
 
   const renderAllChannels = async () => {
